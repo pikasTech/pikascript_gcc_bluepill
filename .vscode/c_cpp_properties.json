@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "arm32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "STM32F103xB",
+                "__CC_ARM",
+                "USE_HAL_DRIVER"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}

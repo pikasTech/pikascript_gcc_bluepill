@@ -1,0 +1,1152 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
+# GNU Make 4.3
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sun May 29 13:34:03 2022
+
+# Variables
+
+# environment
+GDK_BACKEND = x11
+# environment
+LC_ALL = C
+# environment
+GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+SSH_AGENT_LAUNCHER = gnome-keyring
+# environment
+SNAP_INSTANCE_KEY = 
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-2f37c366-3fa9-4454-956d-e29fee592f53.sock
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
+# environment
+VSCODE_CWD = /home/chandler
+# environment
+WINDOWPATH = 2
+# makefile (from 'Makefile', line 44)
+OBJS_PIKA_CORE = $(patsubst pikascript/pikascript-core/%.c, $(OBJ_DIR)/%.o, $(SRCS_PIKA_CORE))
+# environment
+LIBVIRT_DEFAULT_URI = qemu:///system
+# default
+MAKE_COMMAND := make
+# environment
+QT_ACCESSIBILITY = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+SNAP_INSTANCE_NAME = code
+# makefile (from 'Makefile', line 5)
+OBJ_DIR = obj
+# environment
+GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+# makefile (from 'Makefile', line 48)
+OBJS_HAL = $(patsubst Drivers/STM32F1xx_HAL_Driver/Src/%.c, $(OBJ_DIR)/%.o, $(SRCS_HAL))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/chandler/Documentos/pikascript_stm32f103c8
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# makefile (from 'Makefile', line 50)
+OBJS_BOOTER = $(patsubst Booter/%.c, $(OBJ_DIR)/%.o, $(SRCS_BOOTER))
+# environment
+OLDPWD = /home/chandler
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+VSCODE_LOG_STACK = false
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = /home/chandler/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
+# environment
+LANG = C
+# environment
+XAUTHORITY = /run/user/1000/gdm/Xauthority
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /home/chandler/Documentos/pikascript_stm32f103c8
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# makefile (from 'Makefile', line 51)
+OBJ_STARTUP = $(OBJ_DIR)/startup_stm32f103xb_gcc.o
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# makefile (from 'Makefile', line 37)
+SRCS_PIKA_LIB1 = $(wildcard pikascript/pikascript-lib/PikaStdDevice/*.c)
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# environment
+SNAP_REEXEC = 
+# automatic
+@F = $(notdir $@)
+# environment
+ZSH = /home/chandler/.oh-my-zsh
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+VSCODE_PID = 7336
+# environment
+XDG_SESSION_TYPE = x11
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# makefile (from 'Makefile', line 38)
+SRCS_PIKA_LIB2 = $(wildcard pikascript/pikascript-lib/PikaStdLib/*.c)
+# environment
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
+# environment
+SESSION_MANAGER = local/chandler-PC3:@/tmp/.ICE-unix/3119,unix/chandler-PC3:/tmp/.ICE-unix/3119
+# environment
+VAGRANT_DEFAULT_PROVIDER = libvirt
+# automatic
+*F = $(notdir $*)
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"74ce6549a467d1dfaba55fb5394742c9.pt-br","_translationsConfigFile":"/home/chandler/.config/Code/clp/74ce6549a467d1dfaba55fb5394742c9.pt-br/tcf.json","_cacheRoot":"/home/chandler/.config/Code/clp/74ce6549a467d1dfaba55fb5394742c9.pt-br","_resolvedLanguagePackCoreLocation":"/home/chandler/.config/Code/clp/74ce6549a467d1dfaba55fb5394742c9.pt-br/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5","_corruptedFile":"/home/chandler/.config/Code/clp/74ce6549a467d1dfaba55fb5394742c9.pt-br/corrupted.info","_languagePackSupport":true}
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# makefile (from 'Makefile', line 59)
+OBJS = $(OBJS_PIKA_LIB1) $(OBJS_PIKA_LIB2) $(OBJS_PIKA_LIB3) $(OBJS_PIKA_CORE) $(OBJS_PIKA_API) $(OBJS_HAL) $(OBJS_BOOTER) $(OBJ_STARTUP)
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+XMODIFIERS = @im=ibus
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+SHLVL = 0
+# environment
+PICO_SDK_PATH = /home/chandler/pico-sdk
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+SNAP_COOKIE = 0SaWqis-fAh_triAHGsShSxQyXwKk-oN27PcOzzME105pYLSWuR4
+# environment
+PATH = /home/chandler/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/chandler/Orange Pi/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux/gcc-arm-none-eabi-10.3-2021.10/bin/:/home/chandler/Orange Pi/gcc-arm-10.3-2021.07-x86_64-arm-none-linux-gnueabihf/bin:/usr/arm-linux-gnueabi/bin:/home/chandler/Orange Pi/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin:/home/chandler/openFPGALoader/build:/home/chandler/openhantek/build/openhantek:/opt/riscv-gcc/bin:/home/chandler/stlink/stlink/build/Release/bin:/home/chandler/lite-xl/bin
+# default
+MAKEFILES := 
+# environment
+LANGUAGE = pt_BR:pt:en
+# automatic
+^F = $(notdir $^)
+# environment
+SNAP_USER_COMMON = /home/chandler/snap/code/common
+# environment
+SNAP = /snap/code/97
+# makefile (from 'Makefile', line 41)
+OBJS_PIKA_LIB2 = $(patsubst pikascript/pikascript-lib/PikaStdLib/%.c, $(OBJ_DIR)/%.o, $(SRCS_PIKA_LIB2))
+# makefile (from 'Makefile', line 26)
+DEF = -DSTM32F103xB -DUSE_STDPERIPH_DRIVER -DPIKA_BYTECODE_ALIGN
+# makefile (from 'Makefile', line 1)
+PREFIX = arm-none-eabi-
+# environment
+INVOCATION_ID = 44a998b41b1045379bde0752ad165052
+# environment
+SNAP_REVISION = 97
+# environment
+QSYS_ROOTDIR = /home/chandler/intelFPGA_lite/21.1/quartus/sopc_builder/bin
+# environment
+SNAP_REAL_HOME = /home/chandler
+# makefile (from 'Makefile', line 42)
+OBJS_PIKA_LIB3 = $(patsubst pikascript/pikascript-lib/STM32F1/%.c, $(OBJ_DIR)/%.o, $(SRCS_PIKA_LIB3))
+# makefile (from 'Makefile', line 47)
+SRCS_HAL = $(wildcard Drivers/STM32F1xx_HAL_Driver/Src/*.c)
+# environment
+VSCODE_LOG_NATIVE = false
+# environment
+USERNAME = chandler
+# makefile (from 'Makefile', line 49)
+SRCS_BOOTER = $(wildcard Booter/*.c)
+# automatic
+?F = $(notdir $?)
+# makefile (from 'Makefile', line 21)
+INC = -IBooter -IDrivers/STM32F1xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32F1xx/Include -IDrivers/CMSIS/Include -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy -Ipikascript/pikascript-api -Ipikascript/pikascript-core -Ipikascript/pikascript-lib/STM32F1
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+LS_COLORS = 
+# automatic
++F = $(notdir $+)
+# makefile (from 'Makefile', line 46)
+OBJS_PIKA_API = $(patsubst pikascript/pikascript-api/%.c, $(OBJ_DIR)/%.o, $(SRCS_PIKA_API))
+# environment
+LESS = -R
+# environment
+DESKTOP_SESSION = ubuntu
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+LOGNAME = chandler
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
+# environment
+SNAP_ARCH = amd64
+# makefile
+.DEFAULT_GOAL := link
+# environment
+SYSTEMD_EXEC_PID = 3164
+# environment
+DISPLAY = :1
+# environment
+USER = chandler
+# environment
+GTK_MODULES = gail:atk-bridge
+# makefile (from 'Makefile', line 6)
+LINKERSCRIPT = STM32F103C8Tx_FLASH.ld
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# default
+MAKE_VERSION := 4.3
+# environment
+DISABLE_WAYLAND = 1
+# environment
+SNAP_DATA = /var/snap/code/97
+# environment
+SNAP_CONTEXT = 0SaWqis-fAh_triAHGsShSxQyXwKk-oN27PcOzzME105pYLSWuR4
+# makefile (from 'Makefile', line 33)
+LDFLAGS = -T$(LINKERSCRIPT) -mthumb  -mcpu=cortex-m0 --specs=nosys.specs --specs=nano.specs
+# environment
+MANAGERPID = 2855
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 7290
+# makefile (from 'Makefile', line 45)
+SRCS_PIKA_API = $(wildcard pikascript/pikascript-api/*.c)
+# environment
+PAGER = less
+# environment
+_ = /snap/code/97/usr/share/code/code
+# makefile (from 'Makefile', line 40)
+OBJS_PIKA_LIB1 = $(patsubst pikascript/pikascript-lib/PikaStdDevice/%.c, $(OBJ_DIR)/%.o, $(SRCS_PIKA_LIB1))
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# makefile (from 'Makefile', line 11)
+CFLAGS = -c -mcpu=cortex-m0 -mthumb
+# environment
+GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+# environment
+GDK_PIXBUF_MODULE_FILE = /home/chandler/snap/code/common/.cache/gdk-pixbuf-loaders.cache
+# environment
+JOURNAL_STREAM = 8:62678
+# makefile (from 'Makefile', line 43)
+SRCS_PIKA_CORE = $(wildcard pikascript/pikascript-core/*.c)
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/chandler
+# environment
+QT_IM_MODULE = ibus
+# makefile (from 'Makefile', line 4)
+BIN_DIR = bin
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-11d73d68-1.67.2-main.sock
+# environment
+SNAP_NAME = code
+# environment
+GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
+# environment
+IM_CONFIG_PHASE = 1
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# makefile (from 'Makefile', line 39)
+SRCS_PIKA_LIB3 = $(wildcard pikascript/pikascript-lib/STM32F1/*.c)
+# environment
+SNAP_VERSION = c3511e6c
+# default
+SUFFIXES := 
+# makefile (from 'Makefile', line 3)
+LD = $(PREFIX)ld
+ 
+# environment
+VSCODE_CLI = 1
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+SNAP_COMMON = /var/snap/code/common
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# makefile (from 'Makefile', line 2)
+CC = $(PREFIX)gcc
+# environment
+SNAP_USER_DATA = /home/chandler/snap/code/97
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+GDMSESSION = ubuntu
+# environment
+SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
+# variable set hash-table stats:
+# Load=157/1024=15%, Rehash=0, Collisions=10/326=3%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# pikascript/pikascript-core (device 2065, inode 3171425): 42 files, no impossibilities.
+# . (device 2065, inode 3146255): 11 files, no impossibilities.
+# pikascript/pikascript-api (device 2065, inode 3171336): 90 files, no impossibilities.
+# Booter (device 2065, inode 3149982): 13 files, no impossibilities.
+# pikascript/pikascript-lib/STM32F1 (device 2065, inode 3171487): 10 files, no impossibilities.
+# Drivers/STM32F1xx_HAL_Driver/Src (device 2065, inode 3171133): 18 files, no impossibilities.
+# pikascript/pikascript-lib/PikaStdLib (device 2065, inode 3171477): 11 files, no impossibilities.
+# pikascript/pikascript-lib/PikaStdDevice (device 2065, inode 3171468): 10 files, no impossibilities.
+
+# 205 files, no impossibilities in 8 directories.
+
+# Implicit Rules
+
+obj/%.o: pikascript/pikascript-lib/PikaStdDevice/%.c | obj
+#  recipe to execute (from 'Makefile', line 73):
+	$(CC) $(CFLAGS) $(DEF) $(INC) $< -o $@
+
+obj/%.o: pikascript/pikascript-lib/PikaStdLib/%.c | obj
+#  recipe to execute (from 'Makefile', line 75):
+	$(CC) $(CFLAGS) $(DEF) $(INC) $< -o $@
+
+obj/%.o: pikascript/pikascript-lib/STM32F1/%.c | obj
+#  recipe to execute (from 'Makefile', line 77):
+	$(CC) $(CFLAGS) $(DEF) $(INC) $< -o $@
+
+obj/%.o: pikascript/pikascript-api/%.c | obj
+#  recipe to execute (from 'Makefile', line 87):
+	$(CC) $(CFLAGS) $(DEF) $(INC) $< -o $@
+
+obj/%.o: pikascript/pikascript-core/%.c | obj
+#  recipe to execute (from 'Makefile', line 92):
+	$(CC) $(CFLAGS) $(DEF) $(INC) $< -o $@
+
+obj/%.o: Drivers/STM32F1xx_HAL_Driver/Src/%.c | obj
+#  recipe to execute (from 'Makefile', line 97):
+	$(CC) $(CFLAGS) $(DEF) $(INC) $< -o $@
+
+obj/%.o: Booter/%.c | obj
+#  recipe to execute (from 'Makefile', line 102):
+	$(CC) $(CFLAGS) $(DEF) $(INC) $< -o $@
+
+# 7 implicit rules, 0 (0.0%) terminal.
+# Files
+
+# Not a target:
+obj/PikaStdDevice_ADC-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_ADC.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/machine_PWM-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataArgs.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaObj.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdTask_Task-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_ADC.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_PWM-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdData_String-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/machine_Time-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaVM.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_rcc_ex.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_UART.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdData_Dict-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/main.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/machine_UART-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/__asset_pikaModules_py_a.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/machine_lowLevel-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataLink.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_SysObj.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaParser.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/gpio.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_rcc.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+startup: obj/startup_stm32f103xb_gcc.o | obj
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+obj/startup_stm32f103xb_gcc.o: startup_stm32f103xb_gcc.s
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 82):
+	$(CC) -x assembler-with-cpp $(CFLAGS) $(DEF) $(INC) $< -o $@
+
+# Not a target:
+obj/machine_IIC-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdData_ByteArray-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_exti.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-29 13:33:32.273607563
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+obj/stm32f1xx_hal_gpio.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+objs: obj/PikaStdDevice_ADC.o obj/PikaStdDevice_CAN.o obj/PikaStdDevice_GPIO.o obj/PikaStdDevice_IIC.o obj/PikaStdDevice_PWM.o obj/PikaStdDevice_SPI.o obj/PikaStdDevice_Time.o obj/PikaStdDevice_UART.o obj/PikaDebuger_Debuger.o obj/PikaStdData_Dict.o obj/PikaStdData_List.o obj/PikaStdData_String.o obj/PikaStdLib_MemChecker.o obj/PikaStdLib_RangeObj.o obj/PikaStdLib_StringObj.o obj/PikaStdLib_SysObj.o obj/PikaStdTask_Task.o obj/STM32F1_ADC.o obj/STM32F1_GPIO.o obj/STM32F1_IIC.o obj/STM32F1_PWM.o obj/STM32F1_Time.o obj/STM32F1_UART.o obj/STM32F1_common.o obj/BaseObj.o obj/PikaCompiler.o obj/PikaObj.o obj/PikaParser.o obj/PikaPlatform.o obj/PikaVM.o obj/TinyObj.o obj/dataArg.o obj/dataArgs.o obj/dataLink.o obj/dataLinkNode.o obj/dataMemory.o obj/dataQueue.o obj/dataQueueObj.o obj/dataStack.o obj/dataString.o obj/dataStrs.o obj/PikaDebug-api.o obj/PikaDebug_Debuger-api.o obj/PikaMain-api.o obj/PikaStdData-api.o obj/PikaStdData_ByteArray-api.o obj/PikaStdData_Dict-api.o obj/PikaStdData_List-api.o obj/PikaStdData_String-api.o obj/PikaStdDevice-api.o obj/PikaStdDevice_ADC-api.o obj/PikaStdDevice_CAN-api.o obj/PikaStdDevice_GPIO-api.o obj/PikaStdDevice_IIC-api.o obj/PikaStdDevice_PWM-api.o obj/PikaStdDevice_SPI-api.o obj/PikaStdDevice_Time-api.o obj/PikaStdDevice_UART-api.o obj/PikaStdLib-api.o obj/PikaStdLib_MemChecker-api.o obj/PikaStdLib_PikaObj-api.o obj/PikaStdLib_RangeObj-api.o obj/PikaStdLib_StringObj-api.o obj/PikaStdLib_SysObj-api.o obj/PikaStdTask-api.o obj/PikaStdTask_Task-api.o obj/STM32F1-api.o obj/STM32F1_ADC-api.o obj/STM32F1_GPIO-api.o obj/STM32F1_IIC-api.o obj/STM32F1_PWM-api.o obj/STM32F1_Time-api.o obj/STM32F1_UART-api.o obj/STM32F1_lowLevel-api.o obj/__asset_pikaModules_py_a.o obj/machine-api.o obj/machine_ADC-api.o obj/machine_GPIO-api.o obj/machine_IIC-api.o obj/machine_PWM-api.o obj/machine_Time-api.o obj/machine_UART-api.o obj/machine_lowLevel-api.o obj/pikaScript.o obj/stm32f1xx_hal.o obj/stm32f1xx_hal_adc.o obj/stm32f1xx_hal_adc_ex.o obj/stm32f1xx_hal_cortex.o obj/stm32f1xx_hal_dma.o obj/stm32f1xx_hal_exti.o obj/stm32f1xx_hal_flash.o obj/stm32f1xx_hal_flash_ex.o obj/stm32f1xx_hal_gpio.o obj/stm32f1xx_hal_gpio_ex.o obj/stm32f1xx_hal_pwr.o obj/stm32f1xx_hal_rcc.o obj/stm32f1xx_hal_rcc_ex.o obj/stm32f1xx_hal_tim.o obj/stm32f1xx_hal_tim_ex.o obj/stm32f1xx_hal_uart.o obj/gpio.o obj/main.o obj/stm32f1xx_hal_msp.o obj/stm32f1xx_it.o obj/system_stm32f1xx.o obj/usart.o obj/startup_stm32f103xb_gcc.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_msp.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_SPI.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_Time.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_cortex.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdData-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_UART-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_gpio_ex.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+# Not a target:
+obj/PikaCompiler.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_RangeObj-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataString.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 109):
+	rm -rf $(BIN_DIR) $(OBJ_DIR)
+
+# Not a target:
+obj/PikaDebuger_Debuger.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+hal: obj/stm32f1xx_hal.o obj/stm32f1xx_hal_adc.o obj/stm32f1xx_hal_adc_ex.o obj/stm32f1xx_hal_cortex.o obj/stm32f1xx_hal_dma.o obj/stm32f1xx_hal_exti.o obj/stm32f1xx_hal_flash.o obj/stm32f1xx_hal_flash_ex.o obj/stm32f1xx_hal_gpio.o obj/stm32f1xx_hal_gpio_ex.o obj/stm32f1xx_hal_pwr.o obj/stm32f1xx_hal_rcc.o obj/stm32f1xx_hal_rcc_ex.o obj/stm32f1xx_hal_tim.o obj/stm32f1xx_hal_tim_ex.o obj/stm32f1xx_hal_uart.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaDebug-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/BaseObj.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdData_Dict.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_MemChecker.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_GPIO.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataArg.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_flash_ex.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_ADC-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+pika_api: obj/PikaDebug-api.o obj/PikaDebug_Debuger-api.o obj/PikaMain-api.o obj/PikaStdData-api.o obj/PikaStdData_ByteArray-api.o obj/PikaStdData_Dict-api.o obj/PikaStdData_List-api.o obj/PikaStdData_String-api.o obj/PikaStdDevice-api.o obj/PikaStdDevice_ADC-api.o obj/PikaStdDevice_CAN-api.o obj/PikaStdDevice_GPIO-api.o obj/PikaStdDevice_IIC-api.o obj/PikaStdDevice_PWM-api.o obj/PikaStdDevice_SPI-api.o obj/PikaStdDevice_Time-api.o obj/PikaStdDevice_UART-api.o obj/PikaStdLib-api.o obj/PikaStdLib_MemChecker-api.o obj/PikaStdLib_PikaObj-api.o obj/PikaStdLib_RangeObj-api.o obj/PikaStdLib_StringObj-api.o obj/PikaStdLib_SysObj-api.o obj/PikaStdTask-api.o obj/PikaStdTask_Task-api.o obj/STM32F1-api.o obj/STM32F1_ADC-api.o obj/STM32F1_GPIO-api.o obj/STM32F1_IIC-api.o obj/STM32F1_PWM-api.o obj/STM32F1_Time-api.o obj/STM32F1_UART-api.o obj/STM32F1_lowLevel-api.o obj/__asset_pikaModules_py_a.o obj/machine-api.o obj/machine_ADC-api.o obj/machine_GPIO-api.o obj/machine_IIC-api.o obj/machine_PWM-api.o obj/machine_Time-api.o obj/machine_UART-api.o obj/machine_lowLevel-api.o obj/pikaScript.o | obj
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_IIC.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_StringObj.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 105):
+	mkdir $@
+
+# Not a target:
+obj/STM32F1_common.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataStrs.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/machine_ADC-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/system_stm32f1xx.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/TinyObj.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_IIC.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataLinkNode.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_pwr.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_PWM-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+pika_lib: obj/PikaStdDevice_ADC.o obj/PikaStdDevice_CAN.o obj/PikaStdDevice_GPIO.o obj/PikaStdDevice_IIC.o obj/PikaStdDevice_PWM.o obj/PikaStdDevice_SPI.o obj/PikaStdDevice_Time.o obj/PikaStdDevice_UART.o obj/PikaDebuger_Debuger.o obj/PikaStdData_Dict.o obj/PikaStdData_List.o obj/PikaStdData_String.o obj/PikaStdLib_MemChecker.o obj/PikaStdLib_RangeObj.o obj/PikaStdLib_StringObj.o obj/PikaStdLib_SysObj.o obj/PikaStdTask_Task.o obj/STM32F1_ADC.o obj/STM32F1_GPIO.o obj/STM32F1_IIC.o obj/STM32F1_PWM.o obj/STM32F1_Time.o obj/STM32F1_UART.o obj/STM32F1_common.o | obj
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_adc_ex.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_Time.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_IIC-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdTask_Task.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_uart.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_SysObj-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_dma.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_tim.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+link: bin/firmware.elf
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_MemChecker-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaMain-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_Time-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataQueueObj.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_flash.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_PikaObj-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_RangeObj.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_UART.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_lowLevel-api.o:
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+startup_stm32f103xb_gcc.s:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/machine-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+booter: obj/gpio.o obj/main.o obj/stm32f1xx_hal_msp.o obj/stm32f1xx_it.o obj/system_stm32f1xx.o obj/usart.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_Time-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+bin/firmware.elf: obj/PikaStdDevice_ADC.o obj/PikaStdDevice_CAN.o obj/PikaStdDevice_GPIO.o obj/PikaStdDevice_IIC.o obj/PikaStdDevice_PWM.o obj/PikaStdDevice_SPI.o obj/PikaStdDevice_Time.o obj/PikaStdDevice_UART.o obj/PikaDebuger_Debuger.o obj/PikaStdData_Dict.o obj/PikaStdData_List.o obj/PikaStdData_String.o obj/PikaStdLib_MemChecker.o obj/PikaStdLib_RangeObj.o obj/PikaStdLib_StringObj.o obj/PikaStdLib_SysObj.o obj/PikaStdTask_Task.o obj/STM32F1_ADC.o obj/STM32F1_GPIO.o obj/STM32F1_IIC.o obj/STM32F1_PWM.o obj/STM32F1_Time.o obj/STM32F1_UART.o obj/STM32F1_common.o obj/BaseObj.o obj/PikaCompiler.o obj/PikaObj.o obj/PikaParser.o obj/PikaPlatform.o obj/PikaVM.o obj/TinyObj.o obj/dataArg.o obj/dataArgs.o obj/dataLink.o obj/dataLinkNode.o obj/dataMemory.o obj/dataQueue.o obj/dataQueueObj.o obj/dataStack.o obj/dataString.o obj/dataStrs.o obj/PikaDebug-api.o obj/PikaDebug_Debuger-api.o obj/PikaMain-api.o obj/PikaStdData-api.o obj/PikaStdData_ByteArray-api.o obj/PikaStdData_Dict-api.o obj/PikaStdData_List-api.o obj/PikaStdData_String-api.o obj/PikaStdDevice-api.o obj/PikaStdDevice_ADC-api.o obj/PikaStdDevice_CAN-api.o obj/PikaStdDevice_GPIO-api.o obj/PikaStdDevice_IIC-api.o obj/PikaStdDevice_PWM-api.o obj/PikaStdDevice_SPI-api.o obj/PikaStdDevice_Time-api.o obj/PikaStdDevice_UART-api.o obj/PikaStdLib-api.o obj/PikaStdLib_MemChecker-api.o obj/PikaStdLib_PikaObj-api.o obj/PikaStdLib_RangeObj-api.o obj/PikaStdLib_StringObj-api.o obj/PikaStdLib_SysObj-api.o obj/PikaStdTask-api.o obj/PikaStdTask_Task-api.o obj/STM32F1-api.o obj/STM32F1_ADC-api.o obj/STM32F1_GPIO-api.o obj/STM32F1_IIC-api.o obj/STM32F1_PWM-api.o obj/STM32F1_Time-api.o obj/STM32F1_UART-api.o obj/STM32F1_lowLevel-api.o obj/__asset_pikaModules_py_a.o obj/machine-api.o obj/machine_ADC-api.o obj/machine_GPIO-api.o obj/machine_IIC-api.o obj/machine_PWM-api.o obj/machine_Time-api.o obj/machine_UART-api.o obj/machine_lowLevel-api.o obj/pikaScript.o obj/stm32f1xx_hal.o obj/stm32f1xx_hal_adc.o obj/stm32f1xx_hal_adc_ex.o obj/stm32f1xx_hal_cortex.o obj/stm32f1xx_hal_dma.o obj/stm32f1xx_hal_exti.o obj/stm32f1xx_hal_flash.o obj/stm32f1xx_hal_flash_ex.o obj/stm32f1xx_hal_gpio.o obj/stm32f1xx_hal_gpio_ex.o obj/stm32f1xx_hal_pwr.o obj/stm32f1xx_hal_rcc.o obj/stm32f1xx_hal_rcc_ex.o obj/stm32f1xx_hal_tim.o obj/stm32f1xx_hal_tim_ex.o obj/stm32f1xx_hal_uart.o obj/gpio.o obj/main.o obj/stm32f1xx_hal_msp.o obj/stm32f1xx_it.o obj/system_stm32f1xx.o obj/usart.o obj/startup_stm32f103xb_gcc.o | bin
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 64):
+	$(CC) $(OBJS) $(LDFLAGS) -o $@
+
+# Not a target:
+obj/PikaDebug_Debuger-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/usart.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaPlatform.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_CAN.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+bin:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 105):
+	mkdir $@
+
+# Not a target:
+obj/PikaStdDevice_GPIO-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_it.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_PWM.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+pika_core: obj/BaseObj.o obj/PikaCompiler.o obj/PikaObj.o obj/PikaParser.o obj/PikaPlatform.o obj/PikaVM.o obj/TinyObj.o obj/dataArg.o obj/dataArgs.o obj/dataLink.o obj/dataLinkNode.o obj/dataMemory.o obj/dataQueue.o obj/dataQueueObj.o obj/dataStack.o obj/dataString.o obj/dataStrs.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_SPI-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdData_List-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_adc.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_IIC-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_UART-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_PWM.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/stm32f1xx_hal_tim_ex.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/pikaScript.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdData_String.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_GPIO-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdData_List.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdTask-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataMemory.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PHONY: link objs pika_lib startup pika_api pika_core hal booter clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdDevice_CAN-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/machine_GPIO-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/PikaStdLib_StringObj-api.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/STM32F1_GPIO.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataStack.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/dataQueue.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=125/1024=12%, Rehash=0, Collisions=35/492=7%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 329 / storage = 6287 B / avg = 19 B
+# current buf: size = 8162 B / used = 6287 B / count = 329 / avg = 19 B
+
+# strcache performance: lookups = 622 / hit rate = 47%
+# hash-table stats:
+# Load=329/8192=4%, Rehash=0, Collisions=14/622=2%
+# Finished Make data base on Sun May 29 13:34:03 2022
+
+ 
