@@ -52,19 +52,22 @@ enum StmtType {
     STMT_none,
 };
 
-typedef struct Asmer_t {
+typedef struct Asmer Asmer;
+struct Asmer {
     char* asm_code;
     uint8_t block_deepth_now;
     uint8_t is_new_line;
     char* line_pointer;
-} Asmer;
+};
 
+typedef struct LexToken LexToken;
 struct LexToken {
     char* token;
     enum TokenType type;
     char* pyload;
 };
 
+typedef struct ParserState ParsetState;
 struct ParserState {
     char* tokens;
     uint16_t length;
@@ -92,9 +95,9 @@ char* Parser_parsePyLines(Args* outBuffs,
     for (int i = 0; i < parseState.length; i++)
 
 #define ParserState_forEachTokenExistPs(parseState, tokens) \
-    /* init parserStage */                                 \
-    ParserState_init(&parseState);                         \
-    ParserState_parse(&parseState, tokens);                \
+    /* init parserStage */                                  \
+    ParserState_init(&parseState);                          \
+    ParserState_parse(&parseState, tokens);                 \
     ParserState_forEach(parseState)
 
 #define ParserState_forEachToken(parseState, tokens) \

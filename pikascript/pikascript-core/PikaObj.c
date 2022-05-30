@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-#define __PIKA_OBJ_CLASS_IMPLEMENT
 #include "PikaObj.h"
 #include "BaseObj.h"
 #include "PikaCompiler.h"
@@ -672,89 +671,115 @@ static void __clearBuff(char* buff, int size) {
     }
 }
 
+static void __obj_runCharBeforeRun(PikaObj* self) {
+    struct shell_config* cfg = args_getStruct(self->list, "__shcfg");
+    /* create the line buff for the first time */
+    obj_setBytes(self, "__shbuf", NULL, PIKA_LINE_BUFF_SIZE);
+    obj_setInt(self, "__shinb", 0);
+    /* print out the prefix when first entry */
+    __platform_printf(cfg->prefix);
+}
+
+enum shell_state obj_runChar(PikaObj* self, char inputChar) {
+    struct shell_config* cfg = args_getStruct(self->list, "__shcfg");
+    __obj_shellLineHandler_t __lineHandler_fun = obj_getPtr(self, "__shhdl");
+    char* rxBuff = (char*)obj_getBytes(self, "__shbuf");
+    char* input_line = NULL;
+    int is_in_block = obj_getInt(self, "__shinb");
+#ifndef __linux
+    __platform_printf("%c", inputChar);
+#endif
+    if ((inputChar == '\b') || (inputChar == 127)) {
+        uint32_t size = strGetSize(rxBuff);
+        if (size == 0) {
+            __platform_printf(" ");
+            return SHELL_STATE_CONTINUE;
+        }
+        __platform_printf(" \b");
+        rxBuff[size - 1] = 0;
+        return SHELL_STATE_CONTINUE;
+    }
+    if (inputChar != '\r' && inputChar != '\n') {
+        strAppendWithSize(rxBuff, &inputChar, 1);
+        return SHELL_STATE_CONTINUE;
+    }
+    if ((inputChar == '\r') || (inputChar == '\n')) {
+#ifndef __linux
+        __platform_printf("\r\n");
+#endif
+        /* still in block */
+        if (is_in_block) {
+            /* load new line into buff */
+            Args buffs = {0};
+            char _n = '\n';
+            strAppendWithSize(rxBuff, &_n, 1);
+            char* shell_buff_new =
+                strsAppend(&buffs, obj_getStr(self, "shell_buff"), rxBuff);
+            obj_setStr(self, "shell_buff", shell_buff_new);
+            strsDeinit(&buffs);
+            /* go out from block */
+            if ((rxBuff[0] != ' ') && (rxBuff[0] != '\t')) {
+                obj_setInt(self, "__shinb", 0);
+                input_line = obj_getStr(self, "shell_buff");
+                enum shell_state state = __lineHandler_fun(self, input_line);
+                __platform_printf(">>> ");
+                return state;
+            } else {
+                __platform_printf("... ");
+            }
+            __clearBuff(rxBuff, PIKA_LINE_BUFF_SIZE);
+            return SHELL_STATE_CONTINUE;
+        }
+        if (0 != strGetSize(rxBuff)) {
+            /* go in block */
+            if (rxBuff[strGetSize(rxBuff) - 1] == ':') {
+                obj_setInt(self, "__shinb", 1);
+                char _n = '\n';
+                strAppendWithSize(rxBuff, &_n, 1);
+                obj_setStr(self, "shell_buff", rxBuff);
+                __clearBuff(rxBuff, PIKA_LINE_BUFF_SIZE);
+                __platform_printf("... ");
+                return SHELL_STATE_CONTINUE;
+            }
+        }
+        input_line = rxBuff;
+        enum shell_state state = __lineHandler_fun(self, input_line);
+        __platform_printf(cfg->prefix);
+        __clearBuff(rxBuff, PIKA_LINE_BUFF_SIZE);
+        return state;
+    }
+    return SHELL_STATE_CONTINUE;
+}
+
+static void obj_shellConfig(PikaObj* self,
+                            __obj_shellLineHandler_t __lineHandler_fun,
+                            struct shell_config* cfg) {
+    struct shell_config cfg_stack = {0};
+    __platform_memcpy(&cfg_stack, cfg, sizeof(cfg_stack));
+    args_setStruct(self->list, "__shcfg", cfg_stack);
+    obj_setPtr(self, "__shhdl", __lineHandler_fun);
+}
+
 void obj_shellLineProcess(PikaObj* self,
                           __obj_shellLineHandler_t __lineHandler_fun,
                           struct shell_config* cfg) {
-    Args buffs = {0};
-    char* rxBuff = args_getBuff(&buffs, PIKA_LINE_BUFF_SIZE);
-    char* input_line = NULL;
-    uint8_t is_in_block = 0;
-    __platform_printf(cfg->prefix);
+    /* config the shell */
+    obj_shellConfig(self, __lineHandler_fun, cfg);
+
+    /* init the shell */
+    __obj_runCharBeforeRun(self);
+
+    /* getchar and run */
     while (1) {
         char inputChar = __platform_getchar();
-#ifndef __linux
-        __platform_printf("%c", inputChar);
-#endif
-        if ((inputChar == '\b') || (inputChar == 127)) {
-            uint32_t size = strGetSize(rxBuff);
-            if (size == 0) {
-                __platform_printf(" ");
-                continue;
-            }
-            __platform_printf(" \b");
-            rxBuff[size - 1] = 0;
-            continue;
-        }
-        if (inputChar != '\r' && inputChar != '\n') {
-            strAppendWithSize(rxBuff, &inputChar, 1);
-            continue;
-        }
-        if ((inputChar == '\r') || (inputChar == '\n')) {
-#ifndef __linux
-            __platform_printf("\r\n");
-#endif
-            /* still in block */
-            if (is_in_block) {
-                /* load new line into buff */
-                Args buffs = {0};
-                char _n = '\n';
-                strAppendWithSize(rxBuff, &_n, 1);
-                char* shell_buff_new =
-                    strsAppend(&buffs, obj_getStr(self, "shell_buff"), rxBuff);
-                obj_setStr(self, "shell_buff", shell_buff_new);
-                strsDeinit(&buffs);
-                /* go out from block */
-                if (rxBuff[0] != ' ') {
-                    is_in_block = 0;
-                    input_line = obj_getStr(self, "shell_buff");
-                    if (SHELL_STATE_EXIT ==
-                        __lineHandler_fun(self, input_line)) {
-                        break;
-                    }
-                    __platform_printf(">>> ");
-                } else {
-                    __platform_printf("... ");
-                }
-                __clearBuff(rxBuff, PIKA_LINE_BUFF_SIZE);
-                continue;
-            }
-            if (0 != strGetSize(rxBuff)) {
-                /* go in block */
-                if (rxBuff[strGetSize(rxBuff) - 1] == ':') {
-                    is_in_block = 1;
-                    char _n = '\n';
-                    strAppendWithSize(rxBuff, &_n, 1);
-                    obj_setStr(self, "shell_buff", rxBuff);
-                    __clearBuff(rxBuff, PIKA_LINE_BUFF_SIZE);
-                    __platform_printf("... ");
-                    continue;
-                }
-            }
-            input_line = rxBuff;
-            if (SHELL_STATE_EXIT == __lineHandler_fun(self, input_line)) {
-                break;
-            }
-            __platform_printf(cfg->prefix);
-
-            __clearBuff(rxBuff, PIKA_LINE_BUFF_SIZE);
-            continue;
+        if (SHELL_STATE_EXIT == obj_runChar(self, inputChar)) {
+            break;
         }
     }
-    strsDeinit(&buffs);
 }
 
-static enum shell_state __obj_shellLineHandler_debuger(PikaObj* self,
-                                                       char* input_line) {
+static enum shell_state __obj_shellLineHandler_REPL(PikaObj* self,
+                                                    char* input_line) {
     /* exit */
     if (strEqu("exit()", input_line)) {
         /* exit pika shell */
@@ -765,11 +790,20 @@ static enum shell_state __obj_shellLineHandler_debuger(PikaObj* self,
     return SHELL_STATE_CONTINUE;
 }
 
+void obj_runCharInit(PikaObj* self) {
+    struct shell_config cfg = {
+        .prefix = ">>> ",
+    };
+    obj_shellConfig(self, __obj_shellLineHandler_REPL, &cfg);
+    /* init the shell */
+    __obj_runCharBeforeRun(self);
+}
+
 void pikaScriptShell(PikaObj* self) {
     struct shell_config cfg = {
         .prefix = ">>> ",
     };
-    obj_shellLineProcess(self, __obj_shellLineHandler_debuger, &cfg);
+    obj_shellLineProcess(self, __obj_shellLineHandler_REPL, &cfg);
 }
 
 void obj_setErrorCode(PikaObj* self, int32_t errCode) {
@@ -974,4 +1008,30 @@ int obj_importModule(PikaObj* self, char* module_name) {
     }
     obj_importModuleWithByteCode(self, module_name, bytecode);
     return 0;
+}
+
+char* obj_toStr(PikaObj* self) {
+    /* clang-format off */
+    PIKA_PYTHON(
+        __res = __str__()
+    )
+    /* clang-format on */
+
+    /* check method arg */
+    Arg* method_arg = obj_getMethodArg(self, "__str__");
+    if (NULL != method_arg) {
+        arg_deinit(method_arg);
+        const uint8_t bytes[] = {
+            0x08, 0x00, /* instruct array size */
+            0x00, 0x82, 0x01, 0x00, 0x00, 0x04, 0x09, 0x00, /* instruct
+                                                               array */
+            0x0f, 0x00, /* const pool size */
+            0x00, 0x5f, 0x5f, 0x73, 0x74, 0x72, 0x5f, 0x5f, 0x00,
+            0x5f, 0x5f, 0x72, 0x65, 0x73, 0x00, /* const pool */
+        };
+        pikaVM_runByteCode(self, (uint8_t*)bytes);
+        char* str_res = obj_getStr(self, "__res");
+        return str_res;
+    }
+    return NULL;
 }

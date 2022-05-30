@@ -1,3 +1,4 @@
+
 #include "PikaCompiler.h"
 #include "BaseObj.h"
 #include "PikaObj.h"
@@ -102,9 +103,7 @@ int pikaCompileFileWithOutputName(char* output_file_name,
     }
     char* lines = (char*)arg_getBytes(input_file_arg);
     /* add '\n' at the end */
-    if (lines[strGetSize(lines) - 1] != '\n') {
-        lines = strsAppend(&buffs, lines, "\n");
-    }
+    lines = strsAppend(&buffs, lines, "\n\n");
     pikaCompile(output_file_name, lines);
     arg_deinit(input_file_arg);
     strsDeinit(&buffs);
@@ -264,6 +263,10 @@ int LibObj_saveLibraryFile(LibObj* self, char* output_file_name) {
 }
 
 int LibObj_loadLibrary(LibObj* self, uint8_t* library_bytes) {
+    if (0 != ((intptr_t)library_bytes & 0x03)) {
+        return PIKA_ERR_UNALIGNED_PTR;
+    }
+
     char* magic_code = (char*)library_bytes;
 
     uint32_t* library_info = (uint32_t*)library_bytes;
@@ -274,14 +277,14 @@ int LibObj_loadLibrary(LibObj* self, uint8_t* library_bytes) {
     if (!((magic_code[0] == 0x7f) && (magic_code[1] == 'p') &&
           (magic_code[2] == 'y') && (magic_code[3] == 'a'))) {
         __platform_printf("Error: invalid magic code.\r\n");
-        return 1;
+        return PIKA_ERR_ILLEGAL_MAGIC_CODE;
     }
     /* check version num */
     if (version_num != LIB_VERSION_NUMBER) {
         __platform_printf(
             "Error: invalid version number. Expected %, got %\r\n",
             LIB_VERSION_NUMBER, version_num);
-        return 2;
+        return PIKA_ERR_INVALID_VERSION_NUMBER;
     }
     uint8_t* bytecode_addr =
         library_bytes + LIB_INFO_BLOCK_SIZE * (module_num + 1);
@@ -293,7 +296,7 @@ int LibObj_loadLibrary(LibObj* self, uint8_t* library_bytes) {
             *(uint32_t*)(module_name + LIB_INFO_BLOCK_SIZE - sizeof(uint32_t));
         bytecode_addr += module_size;
     }
-    return 0;
+    return PIKA_OK;
 }
 
 int LibObj_loadLibraryFile(LibObj* self, char* lib_file_name) {
@@ -301,16 +304,16 @@ int LibObj_loadLibraryFile(LibObj* self, char* lib_file_name) {
     if (NULL == file_arg) {
         __platform_printf("Error: Could not load library file '%s'\n",
                           lib_file_name);
-        return 1;
+        return PIKA_ERR_IO_ERROR;
     }
     /* save file_arg as __lib_buf to libObj */
     obj_setArg_noCopy(self, "__lib_buf", file_arg);
     if (0 != LibObj_loadLibrary(self, arg_getBytes(file_arg))) {
         __platform_printf("Error: Could not load library from '%s'\n",
                           lib_file_name);
-        return 2;
+        return PIKA_ERR_OPERATION_FAILED;
     }
-    return 0;
+    return PIKA_OK;
 }
 
 size_t pika_fputs(char* str, FILE* fp) {
@@ -340,7 +343,11 @@ int Lib_loadLibraryFileToArray(char* origin_file_name, char* out_folder) {
     char* array_name = strsGetLastToken(&buffs, origin_file_name, '/');
     array_name = strsReplace(&buffs, array_name, ".", "_");
     __platform_printf("    loading %s[]...\n", array_name);
-    pika_fputs("const unsigned char ", fp);
+    pika_fputs("#include \"PikaPlatform.h\"\n",
+               fp);
+    pika_fputs("/* warning: auto generated file, please do not modify */\n",
+               fp);
+    pika_fputs("PIKA_BYTECODE_ALIGN const unsigned char ", fp);
     pika_fputs(array_name, fp);
     pika_fputs("[] = {", fp);
     char byte_buff[32] = {0};
@@ -407,8 +414,8 @@ int pikaMaker_getDependencies(PikaMaker* self, char* module_name) {
     ByteCodeFrame bf = {0};
     Args buffs = {0};
     byteCodeFrame_init(&bf);
-		ConstPool* const_pool = NULL;
-		InstructArray* ins_array = NULL;
+    ConstPool* const_pool = NULL;
+    InstructArray* ins_array = NULL;
     char* module_path =
         strsAppend(&buffs, obj_getStr(self, "pwd"), "pikascript-api/");
     module_path = strsAppend(&buffs, module_path, module_name);

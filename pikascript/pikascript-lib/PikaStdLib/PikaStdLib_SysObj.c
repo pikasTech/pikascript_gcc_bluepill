@@ -87,6 +87,16 @@ int PikaStdLib_SysObj_int(PikaObj* self, Arg* arg) {
     if (ARG_TYPE_STRING == type) {
         return (int)fast_atoi(arg_getStr(arg));
     }
+    if (ARG_TYPE_BYTES == type) {
+        size_t size = arg_getBytesSize(arg);
+        if (size != 1) {
+            obj_setSysOut(self, "ValueError: invalid literal for int()");
+            obj_setErrorCode(self, 1);
+            return -999999999;
+        }
+        uint8_t val = *arg_getBytes(arg);
+        return val;
+    }
     obj_setSysOut(self, "[error] convert to int type faild.");
     obj_setErrorCode(self, 1);
     return -999999999;
@@ -96,21 +106,26 @@ char* PikaStdLib_SysObj_str(PikaObj* self, Arg* arg) {
     ArgType type = arg_getType(arg);
     Args buffs = {0};
     char* res = NULL;
-    do {
-        if (ARG_TYPE_INT == type) {
-            int val = arg_getInt(arg);
-            res = strsFormat(&buffs, 11, "%d", val);
-            break;
+    if (ARG_TYPE_INT == type) {
+        int val = arg_getInt(arg);
+        res = strsFormat(&buffs, 11, "%d", val);
+        goto exit;
+    }
+    if (ARG_TYPE_FLOAT == type) {
+        float val = arg_getFloat(arg);
+        res = strsFormat(&buffs, 11, "%f", val);
+        goto exit;
+    }
+    if (ARG_TYPE_OBJECT == type) {
+        res = obj_toStr(arg_getPtr(arg));
+        if (NULL != res) {
+            goto exit;
         }
-        if (ARG_TYPE_FLOAT == type) {
-            float val = arg_getFloat(arg);
-            res = strsFormat(&buffs, 11, "%f", val);
-            break;
-        }
-    } while (0);
-    obj_setStr(self, "__strtmp", res);
+    }
+exit:
+    obj_setStr(self, "__buf", res);
     strsDeinit(&buffs);
-    return obj_getStr(self, "__strtmp");
+    return obj_getStr(self, "__buf");
 }
 
 Arg* PikaStdLib_SysObj_iter(PikaObj* self, Arg* arg) {
@@ -161,6 +176,13 @@ Arg* PikaStdLib_SysObj___get__(PikaObj* self, Arg* key, Arg* obj) {
         char_buff[0] = str_pyload[index];
         return arg_setStr(NULL, "", char_buff);
     }
+    if (ARG_TYPE_BYTES == obj_type) {
+        int index = arg_getInt(key);
+        uint8_t* bytes_pyload = arg_getBytes(obj);
+        uint8_t byte_buff[] = " ";
+        byte_buff[0] = bytes_pyload[index];
+        return arg_setBytes(NULL, "", byte_buff, 1);
+    }
     if (ARG_TYPE_OBJECT == obj_type) {
         PikaObj* arg_obj = arg_getPtr(obj);
         obj_setArg(arg_obj, "__key", key);
@@ -197,6 +219,14 @@ void PikaStdLib_SysObj___set__(PikaObj* self,
         char* str_pyload = arg_getStr(obj);
         str_pyload[index] = str_val[0];
         obj_setStr(self, obj_str, str_pyload);
+    }
+    if (ARG_TYPE_BYTES == obj_type) {
+        int index = arg_getInt(key);
+        uint8_t* bytes_val = arg_getBytes(val);
+        uint8_t* bytes_pyload = arg_getBytes(obj);
+        size_t bytes_len = arg_getBytesSize(obj);
+        bytes_pyload[index] = bytes_val[0];
+        obj_setBytes(self, obj_str, bytes_pyload, bytes_len);
     }
     if (ARG_TYPE_OBJECT == obj_type) {
         PikaObj* arg_obj = arg_getPtr(obj);
@@ -248,4 +278,68 @@ Arg* PikaStdLib_SysObj_dict(PikaObj* self) {
     obj_setErrorCode(self, 1);
     __platform_printf("[Error] built-in dist is not enabled.\r\n");
     return arg_setNull(NULL);
+}
+
+char* PikaStdLib_SysObj_hex(PikaObj* self, int val) {
+    char buff[PIKA_SPRINTF_BUFF_SIZE] = {0};
+    if (val > 0) {
+        __platform_sprintf(buff, "0x%02x", val);
+    } else {
+        __platform_sprintf(buff, "-0x%02x", -val);
+    }
+    /* load the string from stack to heap */
+    obj_setStr(self, "__buf", buff);
+    return obj_getStr(self, "__buf");
+}
+
+int PikaStdLib_SysObj_ord(PikaObj* self, char* val) {
+    return (int)val[0];
+}
+
+char* PikaStdLib_SysObj_chr(PikaObj* self, int val) {
+    char buff[PIKA_SPRINTF_BUFF_SIZE] = {0};
+    char to_str[] = "0";
+    to_str[0] = val;
+    __platform_sprintf(buff, "%s", to_str);
+    /* load the string from stack to heap */
+    obj_setStr(self, "__buf", buff);
+    return obj_getStr(self, "__buf");
+}
+
+Arg* PikaStdLib_SysObj_bytes(PikaObj* self, Arg* val) {
+    ArgType type = arg_getType(val);
+    if (ARG_TYPE_INT == type) {
+        int size = arg_getInt(val);
+        /* src is NULL so the bytes are all '\0' */
+        Arg* bytes = arg_setBytes(NULL, "", NULL, size);
+        return bytes;
+    }
+    if (ARG_TYPE_BYTES == type) {
+        return arg_copy(val);
+    }
+    if (ARG_TYPE_STRING == type) {
+        int size = strGetSize(arg_getStr(val));
+        Arg* bytes = arg_setBytes(NULL, "", (uint8_t*)arg_getStr(val), size);
+        return bytes;
+    }
+    obj_setErrorCode(self, 1);
+    __platform_printf("Error: input arg type not supported.\r\n");
+    return arg_setNull(NULL);
+}
+
+Arg* PikaStdLib_SysObj___slice__(PikaObj* self,
+                                 Arg* end,
+                                 Arg* obj,
+                                 Arg* start,
+                                 int step) {
+    if ((arg_getType(start) == ARG_TYPE_INT) &&
+        (arg_getType(end) == ARG_TYPE_INT)) {
+        /* __slice__ is equal to __get__ */
+        if (arg_getInt(start) - arg_getInt(end) == 1) {
+            return PikaStdLib_SysObj___get__(self, start, obj);
+        }
+    }
+
+    /* No interger index only support __get__ */
+    return PikaStdLib_SysObj___get__(self, start, obj);
 }

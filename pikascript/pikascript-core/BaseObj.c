@@ -25,15 +25,12 @@
  * SOFTWARE.
  */
 
-#define __PIKA_OBJ_CLASS_IMPLEMENT
-
 #include "BaseObj.h"
 #include "PikaObj.h"
 #include "TinyObj.h"
 #include "dataMemory.h"
 #include "dataString.h"
 #include "dataStrs.h"
-
 
 static void print_no_end(PikaObj* self, Args* args) {
     obj_setErrorCode(self, 0);
@@ -52,12 +49,20 @@ static void print_no_end(PikaObj* self, Args* args) {
     __platform_printf("%s", res);
 }
 
-void baseobj_print(PikaObj* self, Args* args) {
+void Baseobj_print(PikaObj* self, Args* args) {
     obj_setErrorCode(self, 0);
-    Arg* print_arg = args_getArg(args, "val");
-    if (NULL != print_arg) {
-        if (arg_getType(print_arg) == ARG_TYPE_BYTES) {
-            arg_printBytes(print_arg);
+    Arg* arg = args_getArg(args, "val");
+    ArgType arg_type = arg_getType(arg);
+    if (NULL != arg) {
+        if (arg_getType(arg) == ARG_TYPE_BYTES) {
+            arg_printBytes(arg);
+            return;
+        }
+    }
+    if (ARG_TYPE_OBJECT == arg_type) {
+        char* to_str = obj_toStr(arg_getPtr(arg));
+        if (NULL != to_str) {
+            __platform_printf("%s\r\n", to_str);
             return;
         }
     }
@@ -78,7 +83,7 @@ void baseobj_print(PikaObj* self, Args* args) {
 
 PikaObj* New_BaseObj(Args* args) {
     PikaObj* self = New_TinyObj(args);
-    class_defineMethod(self, "print(val:any)", baseobj_print);
+    class_defineMethod(self, "print(val:any)", Baseobj_print);
     class_defineMethod(self, "printNoEnd(val:any)", print_no_end);
     return self;
 }

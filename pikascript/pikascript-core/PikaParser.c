@@ -804,14 +804,22 @@ char* Parser_solveBranckets(Args* outBuffs,
             args_setStr(&buffs, "index", arg_getStr(index_arg));
             arg_deinit(index_arg);
 
+            /* __slice__(obj, start, end, step) */
             if (strEqu(mode, "right")) {
-                right_arg = arg_strAppend(right_arg, "__get__(");
+                right_arg = arg_strAppend(right_arg, "__slice__(");
             } else if (strEqu(mode, "left")) {
                 right_arg = arg_strAppend(right_arg, "__set__(");
             }
             right_arg = arg_strAppend(right_arg, args_getStr(&buffs, "obj"));
             right_arg = arg_strAppend(right_arg, ",");
             right_arg = arg_strAppend(right_arg, args_getStr(&buffs, "index"));
+            /* __slice__(obj, index, indxe + 1, 1) */
+            if (strEqu(mode, "right")) {
+                right_arg = arg_strAppend(right_arg, ",");
+                right_arg =
+                    arg_strAppend(right_arg, args_getStr(&buffs, "index"));
+                right_arg = arg_strAppend(right_arg, " + 1, 1");
+            }
             if (strEqu(mode, "left")) {
                 right_arg = arg_strAppend(right_arg, ",");
                 right_arg = arg_strAppend(right_arg, stmt);
@@ -1434,6 +1442,12 @@ static char* Parser_PreProcess_from(Args* buffs_p, char* line) {
         alias = class;
     }
 
+    /* skip PikaObj */
+    if (strEqu(module, "PikaObj")) {
+        line_out = strsCopy(buffs_p, "");
+        goto exit;
+    }
+
     line_out = strsFormat(&buffs, PIKA_LINE_BUFF_SIZE, "import %s\n%s = %s.%s",
                           module, alias, module, class);
     line_out = strsCopy(buffs_p, line_out);
@@ -1460,7 +1474,7 @@ exit:
 char* Parser_LineToAsm(Args* buffs_p, char* line, Stack* blockStack) {
     char* ASM = NULL;
     AST* ast = NULL;
-		uint8_t line_num = 0;
+    uint8_t line_num = 0;
     /* pre process */
     line = Parser_linePreProcess(buffs_p, line);
     if (NULL == line) {
@@ -1547,7 +1561,13 @@ char* Parser_parsePyLines(Args* outBuffs,
         lines_index++;
         Args buffs = {0};
         /* get single line by pop multiline */
-        char* line = strsGetFirstToken(&buffs, py_lines + lines_offset, '\n');
+        char* line_origin =
+            strsGetFirstToken(&buffs, py_lines + lines_offset, '\n');
+        char* line = line_origin;
+        /* support Tab */
+        if (strIsContain(line_origin, '\t')) {
+            line = strsReplace(&buffs, line_origin, "\t", "    ");
+        }
         /* filter for not end \n */
         if (lines_index != lines_num) {
             if (Parser_isVoidLine(line)) {
@@ -1581,7 +1601,7 @@ char* Parser_parsePyLines(Args* outBuffs,
             byteCodeFrame_appendFromAsm(bytecode_frame, single_ASM);
         }
     next_line:
-        line_size = strGetSize(line);
+        line_size = strGetSize(line_origin);
         lines_offset = lines_offset + line_size + 1;
         strsDeinit(&buffs);
         /* exit when finished */
