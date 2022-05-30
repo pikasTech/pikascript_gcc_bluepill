@@ -11,6 +11,7 @@ LINKERSCRIPT 	= STM32F103C8Tx_FLASH.ld
 CFLAGS  = -c
 CFLAGS += -mcpu=cortex-m0
 CFLAGS += -mthumb
+CFLAGS += -Os
 
 # includes
 INC  = -IBooter

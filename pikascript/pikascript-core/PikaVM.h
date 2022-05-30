@@ -38,7 +38,8 @@ enum Instruct {
     __INSTRCUTION_CNT,
 };
 
-typedef struct VMState_t {
+typedef struct VMState VMState;
+struct VMState {
     VMParameters* locals;
     VMParameters* globals;
     Stack stack;
@@ -47,7 +48,7 @@ typedef struct VMState_t {
     ByteCodeFrame* bytecode_frame;
     uint8_t error_code;
     uint8_t line_error_code;
-} VMState;
+};
 
 VMParameters* pikaVM_run(PikaObj* self, char* pyLine);
 VMParameters* pikaVM_runAsm(PikaObj* self, char* pikaAsm);

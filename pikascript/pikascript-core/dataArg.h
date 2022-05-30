@@ -27,6 +27,7 @@
 
 #ifndef _arg__H
 #define _arg__H
+
 #include "dataLink.h"
 #include "dataMemory.h"
 
@@ -55,9 +56,9 @@ typedef enum {
 
 typedef void (*StructDeinitFun)(void* struct_);
 
-typedef struct __arg __arg;
-struct __arg {
-    __arg* next;
+typedef struct Arg Arg;
+struct Arg {
+    Arg* next;
     uint16_t size;
     uint8_t type;
     uint8_t ref_cnt;
@@ -65,38 +66,16 @@ struct __arg {
     uint8_t content[];
 };
 
-typedef uint8_t Arg;
-
-// uint32_t content_getNameHash(uint8_t* content);
-#define content_getNameHash(__addr) (((__arg*)(__addr))->name_hash)
-
-ArgType content_getType(uint8_t* self);
-
-#define content_getNext(__addr) ((uint8_t*)(((__arg*)(__addr))->next))
-
-#define content_getSize(__addr) ((uint16_t)(((__arg*)(__addr))->size))
-
-#define content_getContent(__addr) (((__arg*)(__addr))->content)
-
-uint16_t content_totleSize(uint8_t* self);
-
-uint8_t* content_deinit(uint8_t* self);
-
-uint8_t* content_setName(uint8_t* self, char* name);
-uint8_t* content_setType(uint8_t* self, ArgType type);
-uint8_t* content_setContent(uint8_t* self, uint8_t* content, uint16_t size);
-// void content_setNext(uint8_t* self, uint8_t* next);
-
-#define content_setNext(__addr, __next)                \
-    do {                                               \
-        (((__arg*)(__addr))->next) = (__arg*)(__next); \
-    } while (0)
-
+Arg* arg_getNext(Arg* self);
+uint16_t arg_getSize(Arg* self);
+uint8_t* arg_getContent(Arg* self);
+uint16_t arg_totleSize(Arg* self);
+void arg_setNext(Arg* self, Arg* next);
 uint16_t arg_getTotleSize(Arg* self);
 void arg_freeContent(Arg* self);
 
 Arg* arg_setName(Arg* self, char* name);
-Arg* arg_setContent(Arg* self, uint8_t* content, uint32_t size);
+Arg* arg_setContent(Arg* self, uint8_t* content, uint16_t size);
 Arg* arg_newContent(Arg* self, uint32_t size);
 Arg* arg_setType(Arg* self, ArgType type);
 Hash arg_getNameHash(Arg* self);
@@ -118,9 +97,7 @@ uint8_t* arg_getBytes(Arg* self);
 size_t arg_getBytesSize(Arg* self);
 Arg* arg_copy(Arg* argToBeCopy);
 
-#define arg_getContent(self) ((uint8_t*)content_getContent((self)))
-
-Arg* arg_init(Arg* self, void* voidPointer);
+uint8_t* arg_getContent(Arg* self);
 void arg_deinit(Arg* self);
 
 Arg* New_arg(void* voidPointer);

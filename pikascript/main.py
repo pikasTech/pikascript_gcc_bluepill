@@ -1,5 +1,5 @@
 import PikaStdLib
-import machine
+# import machine
 print('hello pikascript!')
 mem = PikaStdLib.MemChecker()
 print('mem used max:')
