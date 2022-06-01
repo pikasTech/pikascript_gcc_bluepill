@@ -169,17 +169,25 @@ Arg* PikaStdLib_SysObj_range(PikaObj* self, int a1, int a2) {
 
 Arg* PikaStdLib_SysObj___get__(PikaObj* self, Arg* key, Arg* obj) {
     ArgType obj_type = arg_getType(obj);
+    int index = 0;
+    if (ARG_TYPE_INT == arg_getType(key)) {
+        index = arg_getInt(key);
+    }
     if (ARG_TYPE_STRING == obj_type) {
-        int index = arg_getInt(key);
         char* str_pyload = arg_getStr(obj);
         char char_buff[] = " ";
+        if (index < 0) {
+            index = strGetSize(str_pyload) + index;
+        }
         char_buff[0] = str_pyload[index];
         return arg_setStr(NULL, "", char_buff);
     }
     if (ARG_TYPE_BYTES == obj_type) {
-        int index = arg_getInt(key);
         uint8_t* bytes_pyload = arg_getBytes(obj);
         uint8_t byte_buff[] = " ";
+        if (index < 0) {
+            index = arg_getBytesSize(obj) + index;
+        }
         byte_buff[0] = bytes_pyload[index];
         return arg_setBytes(NULL, "", byte_buff, 1);
     }
@@ -332,14 +340,53 @@ Arg* PikaStdLib_SysObj___slice__(PikaObj* self,
                                  Arg* obj,
                                  Arg* start,
                                  int step) {
-    if ((arg_getType(start) == ARG_TYPE_INT) &&
-        (arg_getType(end) == ARG_TYPE_INT)) {
-        /* __slice__ is equal to __get__ */
-        if (arg_getInt(start) - arg_getInt(end) == 1) {
-            return PikaStdLib_SysObj___get__(self, start, obj);
-        }
+#if PIKA_SYNTEX_ITEM_SLICE_ENABLE
+    /* No interger index only support __get__ */
+    if (!(arg_getType(start) == ARG_TYPE_INT &&
+          arg_getType(end) == ARG_TYPE_INT)) {
+        return PikaStdLib_SysObj___get__(self, start, obj);
     }
 
-    /* No interger index only support __get__ */
-    return PikaStdLib_SysObj___get__(self, start, obj);
+    int start_i = arg_getInt(start);
+    int end_i = arg_getInt(end);
+
+    /* __slice__ is equal to __get__ */
+    if (end_i - start_i == 1) {
+        return PikaStdLib_SysObj___get__(self, start, obj);
+    }
+
+    if (ARG_TYPE_STRING == arg_getType(obj)) {
+        Arg* sliced_arg = arg_setStr(NULL, "", "");
+        for (int i = start_i; i < end_i; i++) {
+            Arg* i_arg = arg_setInt(NULL, "", i);
+            Arg* item_arg = PikaStdLib_SysObj___get__(self, i_arg, obj);
+            sliced_arg = arg_strAppend(sliced_arg, arg_getStr(item_arg));
+            arg_deinit(item_arg);
+            arg_deinit(i_arg);
+        }
+        return sliced_arg;
+    }
+
+    if (ARG_TYPE_BYTES == arg_getType(obj)) {
+        Arg* sliced_arg = arg_setBytes(NULL, "", NULL, 0);
+        for (int i = start_i; i < end_i; i++) {
+            Arg* i_arg = arg_setInt(NULL, "", i);
+            Arg* item_arg = PikaStdLib_SysObj___get__(self, i_arg, obj);
+            uint8_t* bytes_origin = arg_getBytes(sliced_arg);
+            size_t size_origin = arg_getBytesSize(sliced_arg);
+            Arg* sliced_arg_new = arg_setBytes(NULL, "", NULL, size_origin + 1);
+            __platform_memcpy(arg_getBytes(sliced_arg_new), bytes_origin,
+                              size_origin);
+            __platform_memcpy(arg_getBytes(sliced_arg_new) + size_origin,
+                              arg_getBytes(item_arg), 1);
+            arg_deinit(sliced_arg);
+            sliced_arg = sliced_arg_new;
+            arg_deinit(item_arg);
+            arg_deinit(i_arg);
+        }
+        return sliced_arg;
+    }
+#endif
+
+    return arg_setNull(NULL);
 }
