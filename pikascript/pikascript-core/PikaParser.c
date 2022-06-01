@@ -309,6 +309,10 @@ Arg* Lexer_setSymbel(Arg* tokens_arg,
                      int32_t* symbol_start_index) {
     Args buffs = {0};
     char* symbol_buff = NULL;
+    if (-1 == *symbol_start_index) {
+        /* no found symbol start index */
+        goto exit;
+    }
     /* nothing to add symbel */
     if (i == *symbol_start_index) {
         goto exit;
@@ -578,6 +582,9 @@ char* Lexer_getTokens(Args* outBuffs, char* stmt) {
         }
         if (i == size - 1) {
             /* last check symbel */
+            // if('\n' == c0){
+            //     continue;
+            // }
             tokens_arg =
                 Lexer_setSymbel(tokens_arg, stmt, size, &symbol_start_index);
         }
@@ -742,6 +749,55 @@ void ParserState_beforeIter(struct ParserState* ps) {
         arg_setStr(NULL, "", Parser_popToken(ps->buffs_p, ps->tokens));
 }
 
+static void __getSlicePars(Args* outBuffs,
+                           char* inner,
+                           char** pStart,
+                           char** pEnd,
+                           char** pStep) {
+    Args buffs = {0};
+    *pStart = "";
+    *pEnd = "";
+    *pStep = "";
+
+    /* slice */
+    uint8_t colon_i = 0;
+    ParserState_forEachToken(ps, inner) {
+        ParserState_iterStart(&ps);
+        if (strEqu(ps.token1.pyload, ":") && ps.branket_deepth == 0) {
+            colon_i++;
+            goto iter_continue1;
+        }
+        if (colon_i == 0) {
+            *pStart = strsAppend(&buffs, *pStart, ps.token1.pyload);
+        }
+        if (colon_i == 1) {
+            *pEnd = strsAppend(&buffs, *pEnd, ps.token1.pyload);
+        }
+        if (colon_i == 2) {
+            *pStep = strsAppend(&buffs, *pStep, ps.token1.pyload);
+        }
+    iter_continue1:
+        ParserState_iterEnd(&ps);
+    }
+    ParserState_deinit(&ps);
+    if (colon_i == 1) {
+        *pStep = "1";
+    }
+    if (colon_i == 0) {
+        *pEnd = strsAppend(&buffs, *pStart, " + 1");
+        *pStep = "1";
+    }
+
+    /* slice with step */
+
+    /* output */
+    *pStart = strsCopy(outBuffs, *pStart);
+    *pEnd = strsCopy(outBuffs, *pEnd);
+    *pStep = strsCopy(outBuffs, *pStep);
+    /* clean */
+    strsDeinit(&buffs);
+}
+
 char* Parser_solveBranckets(Args* outBuffs,
                             char* content,
                             char* stmt,
@@ -750,7 +806,7 @@ char* Parser_solveBranckets(Args* outBuffs,
     Args buffs = {0};
     Arg* right_arg = arg_setStr(NULL, "", "");
     uint8_t is_in_brancket = 0;
-    args_setStr(&buffs, "index", "");
+    args_setStr(&buffs, "inner", "");
     uint8_t matched = 0;
     /* exit when NULL */
     if (NULL == content) {
@@ -798,12 +854,17 @@ char* Parser_solveBranckets(Args* outBuffs,
         } else if ((TOKEN_devider == ps.token2.type) &&
                    (strEqu(ps.token2.pyload, "]"))) {
             is_in_brancket = 0;
-            char* index = args_getStr(&buffs, "index");
-            Arg* index_arg = arg_setStr(NULL, "", index);
-            index_arg = arg_strAppend(index_arg, ps.token1.pyload);
-            args_setStr(&buffs, "index", arg_getStr(index_arg));
-            arg_deinit(index_arg);
-
+            char* inner = args_getStr(&buffs, "inner");
+            Arg* inner_arg = arg_setStr(NULL, "", inner);
+            inner_arg = arg_strAppend(inner_arg, ps.token1.pyload);
+            args_setStr(&buffs, "inner", arg_getStr(inner_arg));
+            arg_deinit(inner_arg);
+            /* update inner pointer */
+            inner = args_getStr(&buffs, "inner");
+            char* start = NULL;
+            char* end = NULL;
+            char* step = NULL;
+            __getSlicePars(&buffs, inner, &start, &end, &step);
             /* __slice__(obj, start, end, step) */
             if (strEqu(mode, "right")) {
                 right_arg = arg_strAppend(right_arg, "__slice__(");
@@ -812,13 +873,15 @@ char* Parser_solveBranckets(Args* outBuffs,
             }
             right_arg = arg_strAppend(right_arg, args_getStr(&buffs, "obj"));
             right_arg = arg_strAppend(right_arg, ",");
-            right_arg = arg_strAppend(right_arg, args_getStr(&buffs, "index"));
+            /* slice only one item */
+            /* end = start + 1 */
+            right_arg = arg_strAppend(right_arg, start);
             /* __slice__(obj, index, indxe + 1, 1) */
             if (strEqu(mode, "right")) {
                 right_arg = arg_strAppend(right_arg, ",");
-                right_arg =
-                    arg_strAppend(right_arg, args_getStr(&buffs, "index"));
-                right_arg = arg_strAppend(right_arg, " + 1, 1");
+                right_arg = arg_strAppend(right_arg, end);
+                right_arg = arg_strAppend(right_arg, ",");
+                right_arg = arg_strAppend(right_arg, step);
             }
             if (strEqu(mode, "left")) {
                 right_arg = arg_strAppend(right_arg, ",");
@@ -831,13 +894,14 @@ char* Parser_solveBranckets(Args* outBuffs,
                 right_arg = arg_strAppend(right_arg, "'");
             }
             right_arg = arg_strAppend(right_arg, ")");
-            args_setStr(&buffs, "index", "");
+            /* clean the inner */
+            args_setStr(&buffs, "inner", "");
             /* in brancket and found '[' */
         } else if (is_in_brancket && (!strEqu(ps.token1.pyload, "["))) {
-            char* index = args_getStr(&buffs, "index");
-            Arg* index_arg = arg_setStr(NULL, "", index);
+            char* inner = args_getStr(&buffs, "inner");
+            Arg* index_arg = arg_setStr(NULL, "", inner);
             index_arg = arg_strAppend(index_arg, ps.token1.pyload);
-            args_setStr(&buffs, "index", arg_getStr(index_arg));
+            args_setStr(&buffs, "inner", arg_getStr(index_arg));
             arg_deinit(index_arg);
             /* out of brancket and not found ']' */
         } else if (!is_in_brancket && (!strEqu(ps.token1.pyload, "]"))) {
@@ -984,9 +1048,12 @@ AST* AST_parseStmt(AST* ast, char* stmt) {
         isLeftExist = Parser_solveSelfOperator(&buffs, stmt, &right, &left);
     }
 
+    char* right_new = right;
+#if PIKA_SYNTEX_ITEM_SLICE_ENABLE
     /* solve the [] stmt */
     right = Parser_solveRightBranckets(&buffs, right);
-    char* right_new = Parser_solveLeftBranckets(&buffs, right, left);
+    right_new = Parser_solveLeftBranckets(&buffs, right, left);
+#endif
 
     /* left is contain the '[]' */
     if (!strEqu(right_new, right)) {

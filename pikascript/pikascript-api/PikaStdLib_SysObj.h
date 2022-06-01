@@ -12,7 +12,7 @@ PikaObj *New_PikaStdLib_SysObj(Args *args);
 Arg* PikaStdLib_SysObj___get__(PikaObj *self, Arg* key, Arg* obj);
 void PikaStdLib_SysObj___set__(PikaObj *self, Arg* key, Arg* obj, char* obj_str, Arg* val);
 Arg* PikaStdLib_SysObj___slice__(PikaObj *self, Arg* end, Arg* obj, Arg* start, int step);
-uint8_t* PikaStdLib_SysObj_bytes(PikaObj *self, Arg* val);
+Arg* PikaStdLib_SysObj_bytes(PikaObj *self, Arg* val);
 char* PikaStdLib_SysObj_chr(PikaObj *self, int val);
 Arg* PikaStdLib_SysObj_dict(PikaObj *self);
 float PikaStdLib_SysObj_float(PikaObj *self, Arg* arg);

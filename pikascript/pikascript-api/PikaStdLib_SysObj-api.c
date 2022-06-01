@@ -33,8 +33,8 @@ void PikaStdLib_SysObj___slice__Method(PikaObj *self, Args *args){
 
 void PikaStdLib_SysObj_bytesMethod(PikaObj *self, Args *args){
     Arg* val = args_getArg(args, "val");
-    uint8_t* res = PikaStdLib_SysObj_bytes(self, val);
-    method_returnBytes(args, res);
+    Arg* res = PikaStdLib_SysObj_bytes(self, val);
+    method_returnArg(args, res);
 }
 
 void PikaStdLib_SysObj_chrMethod(PikaObj *self, Args *args){
